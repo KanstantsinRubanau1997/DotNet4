@@ -4,7 +4,11 @@
     {
         public static void BoxingWithGeneric()
         {
-            // ???
+            // No boxing
+            var someStruct = new SomeStruct();
+            var genericObj = new GenericClass<SomeStruct>(someStruct);
+
+            SomeStruct someStructReleased = genericObj.SomeStruct;
         }
 
         public static void BoxingWithInterface()
@@ -23,7 +27,15 @@
         }
     }
 
-    public class GenericClass<T> where T : IStruct { };
+    public class GenericClass<T> where T : IStruct
+    {
+        public T SomeStruct { get; set; }
+
+        public GenericClass(T someStruct)
+        {
+            this.SomeStruct = someStruct;
+        }
+    }
 
     public struct SomeStruct : IStruct { }
 
